@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BioNext Global — Turning Rice Straw Into Clean Energy</title>
+<meta name="description" content="BioNext Global aggregates rice straw and agricultural biomass, and converts it into pellets and briquettes for clean industrial energy. Launching soon.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --char:#181410;
+    --char-2:#211b15;
+    --straw:#D8A93B;
+    --straw-light:#EBCB78;
+    --ash:#EDE7D9;
+    --ash-dim:#B8AF9C;
+    --rust:#A8481E;
+    --field:#6B7A4F;
+    --line:rgba(237,231,217,0.14);
+    --maxw:1120px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(216,169,59,0.10), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 10%, rgba(107,122,79,0.08), transparent 55%),
+      var(--char);
+    color:var(--ash);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* subtle straw-fiber texture overlay */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    opacity:0.035;
+    background-image:repeating-linear-gradient(115deg, var(--straw) 0px, var(--straw) 1px, transparent 1px, transparent 14px);
+    z-index:0;
+  }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 28px;
+    position:relative;
+    z-index:1;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    padding:32px 0 0;
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-bottom:28px;
+    border-bottom:1px solid var(--line);
+  }
+  .logo{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.25rem;
+    letter-spacing:0.01em;
+  }
+  .logo .mark{
+    color:var(--straw);
+  }
+  .badge{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--field);
+    border:1px solid rgba(107,122,79,0.5);
+    background:rgba(107,122,79,0.08);
+    padding:6px 12px;
+    border-radius:100px;
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+  }
+  .badge .dot{
+    width:6px; height:6px; border-radius:50%;
+    background:var(--field);
+    box-shadow:0 0 0 0 rgba(107,122,79,0.6);
+    animation:pulse 2.4s infinite;
+  }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(107,122,79,0.5); }
+    70%{ box-shadow:0 0 0 7px rgba(107,122,79,0); }
+    100%{ box-shadow:0 0 0 0 rgba(107,122,79,0); }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:88px 0 40px;
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:56px;
+    align-items:center;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--straw);
+    margin-bottom:22px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:24px; height:1px;
+    background:var(--straw);
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(2.4rem, 5vw, 3.85rem);
+    line-height:1.06;
+    letter-spacing:-0.01em;
+    color:var(--ash);
+  }
+  h1 em{
+    font-style:italic;
+    font-weight:500;
+    color:var(--straw-light);
+  }
+  .lede{
+    margin-top:26px;
+    max-width:46ch;
+    font-size:1.08rem;
+    color:var(--ash-dim);
+    line-height:1.65;
+  }
+  .site-status{
+    margin-top:34px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.85rem;
+    color:var(--ash-dim);
+  }
+  .site-status strong{
+    color:var(--straw);
+    font-weight:500;
+  }
+
+  /* ---------- SIGNATURE VISUAL: straw -> pellet ---------- */
+  .visual{
+    position:relative;
+    aspect-ratio:1/1.02;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .visual svg{ width:100%; height:100%; overflow:visible; }
+
+  .straw-line{
+    stroke:var(--straw);
+    stroke-width:2;
+    stroke-linecap:round;
+    opacity:0.85;
+    transform-origin:center;
+    animation:gather 7s ease-in-out infinite;
+  }
+  .straw-line.f2{ stroke:var(--straw-light); animation-delay:.15s; opacity:.65;}
+  .straw-line.f3{ stroke:var(--field); animation-delay:.3s; opacity:.5;}
+
+  @keyframes gather{
+    0%, 14%   { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); opacity:0.9; }
+    45%, 60%  { transform: translate(0,0) rotate(0deg) scale(0.2); opacity:0.15; }
+    75%       { transform: translate(0,0) rotate(0deg) scale(0.2); opacity:0.15; }
+    100%      { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); opacity:0.9; }
+  }
+
+  .pellet-core{
+    opacity:0;
+    animation:coalesce 7s ease-in-out infinite;
+  }
+  @keyframes coalesce{
+    0%, 40%  { opacity:0; transform:scale(0.6); }
+    52%, 68% { opacity:1; transform:scale(1); }
+    82%,100% { opacity:0; transform:scale(0.6); }
+  }
+
+  .visual-caption{
+    position:absolute;
+    bottom:-6px; left:50%;
+    transform:translateX(-50%);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.66rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ash-dim);
+    white-space:nowrap;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .straw-line, .pellet-core, .badge .dot{ animation:none !important; }
+    .straw-line{ opacity:0.7; transform:translate(0,0) rotate(0deg); }
+    .pellet-core{ opacity:1; }
+  }
+
+  /* ---------- PHASES (real roadmap sequence) ---------- */
+  .phases{
+    margin-top:64px;
+    padding-top:44px;
+    border-top:1px solid var(--line);
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:36px;
+  }
+  .phase{
+    display:flex;
+    gap:18px;
+  }
+  .phase .num{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-style:italic;
+    font-size:1.6rem;
+    color:var(--straw);
+    line-height:1;
+    flex-shrink:0;
+    width:40px;
+  }
+  .phase .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.65rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--field);
+    margin-bottom:6px;
+    display:block;
+  }
+  .phase h3{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight:600;
+    font-size:1.02rem;
+    color:var(--ash);
+    margin-bottom:6px;
+  }
+  .phase p{
+    font-size:0.9rem;
+    color:var(--ash-dim);
+    line-height:1.55;
+  }
+
+  /* ---------- NOTIFY ---------- */
+  .notify{
+    margin-top:64px;
+    padding:40px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    background:linear-gradient(180deg, rgba(216,169,59,0.05), transparent);
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:36px;
+    align-items:center;
+  }
+  .notify h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.5rem;
+    color:var(--ash);
+    margin-bottom:8px;
+  }
+  .notify p{
+    color:var(--ash-dim);
+    font-size:0.92rem;
+    max-width:40ch;
+  }
+  form{
+    display:flex;
+    gap:0;
+    border:1px solid var(--line);
+    border-radius:2px;
+    overflow:hidden;
+    background:rgba(237,231,217,0.03);
+  }
+  form input[type="email"]{
+    flex:1;
+    background:transparent;
+    border:none;
+    outline:none;
+    padding:15px 16px;
+    color:var(--ash);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:0.92rem;
+  }
+  form input[type="email"]::placeholder{ color:var(--ash-dim); opacity:0.7; }
+  form button{
+    background:var(--straw);
+    color:var(--char);
+    border:none;
+    padding:0 22px;
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight:600;
+    font-size:0.88rem;
+    cursor:pointer;
+    transition:background 0.15s ease;
+    white-space:nowrap;
+  }
+  form button:hover{ background:var(--straw-light); }
+  form button:focus-visible, form input:focus-visible{
+    outline:2px solid var(--straw-light);
+    outline-offset:-2px;
+  }
+  .form-note{
+    margin-top:10px;
+    font-size:0.76rem;
+    color:var(--ash-dim);
+    opacity:0.75;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    margin-top:64px;
+    padding:30px 0 48px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:16px;
+    font-size:0.82rem;
+    color:var(--ash-dim);
+  }
+  footer a{
+    color:var(--ash-dim);
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+    transition:color 0.15s ease, border-color 0.15s ease;
+  }
+  footer a:hover{ color:var(--straw-light); border-color:var(--straw-light); }
+  .foot-links{ display:flex; gap:22px; }
+
+  @media (max-width: 860px){
+    .hero{ grid-template-columns:1fr; padding-top:56px; }
+    .visual{ order:-1; max-width:280px; margin:0 auto 8px; }
+    .phases{ grid-template-columns:1fr; gap:28px; }
+    .notify{ grid-template-columns:1fr; padding:28px 22px; }
+    form{ flex-direction:column; }
+    form button{ padding:14px; }
+    footer{ flex-direction:column; align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="nav">
+      <div class="logo"><span class="mark">Bio</span>Next Global</div>
+      <div class="badge"><span class="dot"></span>Launching soon</div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Agri-Biomass &amp; Renewable Fuel</div>
+      <h1>Rice straw, <em>reimagined</em><br>as clean industrial energy.</h1>
+      <p class="lede">BioNext Global aggregates and stores agricultural residue — starting with rice straw — and supplies it to industry, before converting it into pellets and briquettes for clean-burning fuel. We're building the site. In the meantime, reach out directly below.</p>
+      <div class="site-status">Status: <strong>pre-launch</strong> · Site going live soon at bionextglobal.com</div>
+    </div>
+
+    <div class="visual" aria-hidden="true">
+      <svg viewBox="0 0 300 300">
+        <!-- gathering straw lines with pellet coalescing at center -->
+        <g class="straws">
+          <!-- generated straw strands around a circle, each animates from its position toward center and scales down into the pellet -->
+        </g>
+        <circle class="pellet-core" cx="150" cy="150" r="26" fill="none" stroke="var(--straw)" stroke-width="2"/>
+        <circle class="pellet-core" cx="150" cy="150" r="14" fill="var(--straw)" opacity="0.9" style="animation-delay:.05s"/>
+      </svg>
+      <div class="visual-caption">Straw → Pellet</div>
+    </div>
+  </section>
+
+  <section class="phases">
+    <div class="phase">
+      <span class="num">01</span>
+      <div>
+        <span class="tag">Now building</span>
+        <h3>Biomass aggregation &amp; supply</h3>
+        <p>Collecting and storing rice straw from farm clusters, and supplying it directly to industrial buyers as raw biomass feedstock.</p>
+      </div>
+    </div>
+    <div class="phase">
+      <span class="num">02</span>
+      <div>
+        <span class="tag">Next</span>
+        <h3>Pellet &amp; briquette production</h3>
+        <p>Processing stored biomass into densified pellets and briquettes — a higher-value, easier-to-transport fuel for industrial boilers.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="notify">
+    <div>
+      <h2>Get notified at launch</h2>
+      <p>Leave your email and we'll let you know the moment BioNext Global goes live — no spam, just the launch update.</p>
+    </div>
+    <div>
+      <form id="notifyForm">
+        <label for="email" class="sr-only" style="position:absolute; left:-9999px;">Email address</label>
+        <input type="email" id="email" name="email" placeholder="you@company.com" required>
+        <button type="submit">Notify me</button>
+      </form>
+      <div class="form-note">Opens your email app to send us a note — we'll add you to the launch list.</div>
+    </div>
+  </section>
+
+  <footer>
+    <div>© <span id="year"></span> BioNext Global · Nagpur, Maharashtra, India</div>
+    <div class="foot-links">
+      <a href="mailto:contact@bionextglobal.com">contact@bionextglobal.com</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Build straw strands programmatically around the pellet core
+  (function(){
+    const ns = "http://www.w3.org/2000/svg";
+    const g = document.querySelector('.straws');
+    const count = 16;
+    const cx = 150, cy = 150, startR = 105, len = 34;
+    for(let i=0;i<count;i++){
+      const angle = (i/count) * Math.PI * 2;
+      const x1 = cx + Math.cos(angle) * startR;
+      const y1 = cy + Math.sin(angle) * startR;
+      const x2 = cx + Math.cos(angle) * (startR - len);
+      const y2 = cy + Math.sin(angle) * (startR - len);
+      const line = document.createElementNS(ns, 'line');
+      line.setAttribute('x1', x1); line.setAttribute('y1', y1);
+      line.setAttribute('x2', x2); line.setAttribute('y2', y2);
+      const cls = i % 3 === 0 ? 'f2' : (i % 3 === 1 ? 'f3' : '');
+      line.setAttribute('class', 'straw-line ' + cls);
+      const dx = (cx - (x1+x2)/2);
+      const dy = (cy - (y1+y2)/2);
+      line.style.setProperty('--dx', '0px');
+      line.style.setProperty('--dy', '0px');
+      line.style.setProperty('--rot', (Math.random()*30-15) + 'deg');
+      line.style.transformOrigin = `${(x1+x2)/2}px ${(y1+y2)/2}px`;
+      line.style.animationDelay = (i * 0.04) + 's';
+      g.appendChild(line);
+    }
+  })();
+
+  // Notify form -> mailto fallback (static site, no backend)
+  document.getElementById('notifyForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    if(!email) return;
+    const subject = encodeURIComponent('Notify me at BioNext Global launch');
+    const body = encodeURIComponent(`Please add this email to the launch notification list: ${email}`);
+    window.location.href = `mailto:contact@bionextglobal.com?subject=${subject}&body=${body}`;
+  });
+</script>
+
+</body>
+</html>
